@@ -2,14 +2,15 @@ const express = require("express");
 const fileUpload = require("express-fileupload");
 const { exec } = require("child_process");
 const pino = require('pino');
+require('dotenv').config()
 
 const transport = pino.transport({
     target: "@logtail/pino",
-    options: { sourceToken: '_logtail_key_' }
+    options: { sourceToken: process.env.LOGTAIL_KEY }
 });
 const logger = pino(transport);
 
-const deploymentSecret = "_deployment_secret_";
+const deploymentSecret = process.env.DEPLOYMENT_SECRET;
 const processName = 'prod';
 const port = 3005;
 
